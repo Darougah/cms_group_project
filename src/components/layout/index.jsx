@@ -20,12 +20,14 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {/* Pass logo to the Header */}
-      <Header headerLinks={config.header_links} logo={config.logo.filename} />
-
+      <Header headerLinks={config.header_links} logo={config.logo?.filename} />
       <main className="container mx-auto p-4">{children}</main>
 
-      <Footer footerSections={config.footer_sections} />
+      {/* Pass the data to Footer */}
+      <Footer 
+        footerSections={config.footer_sections} 
+        newsletter={config.footer_sections.find(section => section.component === 'newsletter')} 
+      />
     </>
   );
 }

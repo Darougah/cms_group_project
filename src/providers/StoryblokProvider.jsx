@@ -11,6 +11,7 @@ import FilterBar from "@/components/nestable/FilterBar";
 import LatestProducts from "@/components/nestable/LatestProducts";
 import ProductList from "@/components/nestable/ProductList";
 import ImageBanner from "@/components/nestable/ImageBanner";
+import ProductGrid from "@/components/nestable/ProductGrid";
 
 const components = {
   "page": Page,
@@ -20,7 +21,8 @@ const components = {
   "filterBar":FilterBar,
   "latestproducts":LatestProducts,
   "productlist": ProductList,
-  "imagebanner": ImageBanner
+  "imagebanner": ImageBanner,
+  "productgrid": ProductGrid
 
 }
 
