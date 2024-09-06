@@ -5,7 +5,7 @@ const Hero = ({ blok }) => {
   return (
     <section 
       {...storyblokEditable(blok)} 
-      className={`hero p-8 text-center text-white ${blok.bgColor ? blok.bgColor : 'bg-indigo-500'}`}>
+      className={`hero p-8 text-center text-white ${blok.bgColor ? blok.bgColor : 'bg-blue-600'}`}>
       <h1 className="text-4xl font-bold mb-4">{blok.title}</h1>
       <p className="text-lg mb-4">{blok.subtitle}</p>
 
@@ -13,7 +13,7 @@ const Hero = ({ blok }) => {
       {blok.buttonText && blok.buttonUrl && (
         <a 
           href={blok.buttonUrl.url} 
-          className="inline-block bg-white text-indigo-500 px-4 py-2 rounded hover:bg-indigo-100">
+          className="inline-block bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-700">
           {blok.buttonText}
         </a>
       )}
