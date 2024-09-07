@@ -3,10 +3,9 @@ import { StoryblokCMS } from "@/utils/cms";
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 
 import Page from "@/components/content-types/Page";
-
 import Teaser from "@/components/nestable/Teaser";
 import RichTextDefault from "@/components/nestable/RichText";
-import hero from "@/components/nestable/Hero"
+import hero from "@/components/nestable/Hero";
 import FilterBar from "@/components/nestable/FilterBar";
 import LatestProducts from "@/components/nestable/LatestProducts";
 import ProductList from "@/components/nestable/ProductList";
@@ -18,30 +17,26 @@ import ProductPage from "@/components/content-types/ProductPage";
 
 const components = {
   "page": Page,
-  "teaser":Teaser,
+  "teaser": Teaser,
   "richtext": RichTextDefault,
   "hero": hero,
-  "filterBar":FilterBar,
-  "latestproducts":LatestProducts,
+  "filterBar": FilterBar,
+  "latestproducts": LatestProducts,
   "productlist": ProductList,
   "imagebanner": ImageBanner,
   "productgrid": ProductGrid,
   "product-feature": ProductFeature,
   "product-slider": ProductSlider,
-  "product-grid": ProductPage
-
-
-}
+  "product-listing": ProductPage,
+  "product-listing": ProductGrid,
+};
 
 storyblokInit({
   accessToken: StoryblokCMS.TOKEN,
-
   use: [apiPlugin],
-  components
+  components,
 });
 
 export default function StoryblokProvider({ children }) {
-  return (
-    children
-  );
+  return children;
 }

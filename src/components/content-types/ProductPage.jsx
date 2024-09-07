@@ -1,19 +1,37 @@
-import { storyblokEditable } from "@storyblok/react";
+import { getStoryblokApi } from '@storyblok/react';
+import ProductList from '@/components/nestable/ProductList'; // Adjust the path based on your project structure
 
-const ProductPage = ({ blok }) => {
+const ProductPage = ({ story }) => {
+  if (!story) {
+    return <p>No products found.</p>;
+  }
+
   return (
-    <div {...storyblokEditable(blok)} className="product-page p-8 bg-white">
-      <h1 className="text-3xl font-bold mb-4">{blok.title}</h1>
-      
-      {/* Check if the image exists before rendering */}
-      {blok.image && (
-        <img className="w-full h-auto mb-4" src={blok.image.filename} alt={blok.image.alt || "Product image"} />
-      )}
-      
-      <p className="text-lg mb-2">{blok.description}</p>
-      <p className="text-xl font-semibold text-indigo-600">Price: {blok.price}</p>
-    </div>
+    <main>
+      <ProductList products={story.content.products} />
+    </main>
   );
 };
+
+export async function getStaticProps() {
+  const StoryblokApi = getStoryblokApi();
+  
+  try {
+    const { data } = await StoryblokApi.get('cdn/stories/productpage'); // Ensure your slug is correct here
+    return {
+      props: {
+        story: data ? data.story : null,
+      },
+      revalidate: 3600, // Revalidate every hour
+    };
+  } catch (error) {
+    console.error('Error fetching product page:', error);
+    return {
+      props: {
+        story: null,
+      },
+    };
+  }
+}
 
 export default ProductPage;
