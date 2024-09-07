@@ -42,24 +42,31 @@ const ProductSlider = ({ blok }) => {
       <h2 className="text-center text-3xl font-bold mb-8">{blok.headline}</h2>
       <Slider {...settings}>
         {blok.products.map((product, index) => (
-          <div key={index} className="product-slide mb-6">
+          <div key={index} className="product-slide mb-6 mx-4">
             {/* Render product image */}
-            {product.productImage && (
-              <img
-                src={product.productImage.filename}
-                alt={product.productImage.alt || product.productName}
-                className="w-full h-auto"
-              />
-            )}
-            <h3 className="text-lg font-semibold mt-2">{product.productName}</h3>
-            <p className="text-gray-600">{product.productPrice}</p>
+            <a
+              href={product.productUrl?.[0]?.url.cached_url || product.productUrl?.[0]?.url.url || '#'}
+              target={product.productUrl?.[0]?.url.linktype === 'url' ? '_blank' : '_self'}
+              rel={product.productUrl?.[0]?.url.linktype === 'url' ? 'noopener noreferrer' : ''}
+              className="block"
+            >
+              {product.productImage && (
+                <img
+                  src={product.productImage.filename}
+                  alt={product.productImage.alt || product.productName}
+                  className="w-full h-auto"
+                />
+              )}
+              <h3 className="text-lg font-semibold mt-2">{product.productName}</h3>
+              <p className="text-gray-600">${product.productPrice}</p>
+            </a>
 
-            {/* Conditionally render the link with label and dynamic URL */}
+            {/* Conditionally render the label link below the product */}
             {product.productUrl && product.productUrl.length > 0 && (
               <a
                 href={product.productUrl[0].url.cached_url || product.productUrl[0].url.url}
                 className="text-blue-500 underline mt-2 block"
-                target={product.productUrl[0].url.linktype === 'url' ? '_blank' : '_self'} // Open external links in a new tab
+                target={product.productUrl[0].url.linktype === 'url' ? '_blank' : '_self'}
                 rel={product.productUrl[0].url.linktype === 'url' ? 'noopener noreferrer' : ''}
               >
                 {product.productUrl[0].label ? product.productUrl[0].label : 'View Product'}
