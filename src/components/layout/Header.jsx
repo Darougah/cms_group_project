@@ -15,7 +15,13 @@ const Header = ({ headerLinks, logo }) => {
         <div className="flex justify-end space-x-4">
           {headerLinks && headerLinks.map((section) =>
             section.link.map((link) => (
-              <a key={link._uid} href={`/${link.url.cached_url}`} className="text-lg hover:underline">
+              <a
+                key={link._uid}
+                href={link.url.cached_url ? `/${link.url.cached_url}` : link.url.url}
+                className="text-lg hover:underline"
+                target={link.url.linktype === 'url' ? '_blank' : '_self'} // Open external links in a new tab
+                rel={link.url.linktype === 'url' ? 'noopener noreferrer' : ''}
+              >
                 {link.label}
               </a>
             ))
