@@ -91,7 +91,7 @@ const Header = ({ headerLinks, logo }) => {
         )}
 
         {/* Links */}
-        <div className="flex-grow flex justify-center items-center space-x-4">
+        <div className="flex-grow flex justify-center items-center space-x-6"> {/* Increased spacing */}
           {headerLinks &&
             headerLinks.map((section) => (
               <div key={section._uid} className="relative group">
@@ -99,7 +99,7 @@ const Header = ({ headerLinks, logo }) => {
                   <a
                     key={link._uid}
                     href={link.url.cached_url ? `/${link.url.cached_url}` : link.url.url}
-                    className="text-lg hover:underline"
+                    className="text-lg hover:underline px-4 py-2" // Added padding for better spacing
                     target={link.url.linktype === 'url' ? '_blank' : '_self'}
                     rel={link.url.linktype === 'url' ? 'noopener noreferrer' : ''}
                   >
