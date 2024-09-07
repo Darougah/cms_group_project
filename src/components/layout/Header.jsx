@@ -13,11 +13,13 @@ const Header = ({ headerLinks, logo }) => {
 
         {/* Links on the far right */}
         <div className="flex justify-end space-x-4">
-          {headerLinks && headerLinks.map((link) => (
-            <a key={link.url} href={link.url} className="text-lg hover:underline">
-              {link.label}
-            </a>
-          ))}
+          {headerLinks && headerLinks.map((section) =>
+            section.link.map((link) => (
+              <a key={link._uid} href={`/${link.url.cached_url}`} className="text-lg hover:underline">
+                {link.label}
+              </a>
+            ))
+          )}
         </div>
       </nav>
     </header>

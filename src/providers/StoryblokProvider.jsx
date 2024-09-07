@@ -12,6 +12,9 @@ import LatestProducts from "@/components/nestable/LatestProducts";
 import ProductList from "@/components/nestable/ProductList";
 import ImageBanner from "@/components/nestable/ImageBanner";
 import ProductGrid from "@/components/nestable/ProductGrid";
+import ProductFeature from "@/components/nestable/ProductFeature";
+import ProductSlider from "@/components/nestable/ProductSlider";
+import ProductPage from "@/components/content-types/ProductPage";
 
 const components = {
   "page": Page,
@@ -22,7 +25,11 @@ const components = {
   "latestproducts":LatestProducts,
   "productlist": ProductList,
   "imagebanner": ImageBanner,
-  "productgrid": ProductGrid
+  "productgrid": ProductGrid,
+  "product-feature": ProductFeature,
+  "product-slider": ProductSlider,
+  "product-grid": ProductPage
+
 
 }
 

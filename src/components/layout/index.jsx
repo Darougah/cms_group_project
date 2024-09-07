@@ -20,7 +20,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      <Header headerLinks={config.header_links} logo={config.logo?.filename} />
+      <Header headerLinks={config.header_section} logo={config.logo?.filename} />
       <main className="container mx-auto p-4">{children}</main>
 
       {/* Pass the data to Footer */}
