@@ -5,20 +5,20 @@ const ProductGrid = ({ blok }) => {
   const gridColumns = blok.grid_columns || 3;
 
   // Dynamically create the grid class based on the number of columns
-  const gridClass = `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${gridColumns} gap-8`;
+  const gridClass = `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${gridColumns} gap-10`;
 
   return (
-    <section {...storyblokEditable(blok)} className="mb-12">
+    <section {...storyblokEditable(blok)} className="mb-12 container mx-auto">
       <h2 className="text-center text-3xl font-bold mb-8">{blok.headline}</h2>
       <div className={gridClass}>
         {blok.products.map((product, index) => (
-          <div key={index} className="product-item bg-white shadow-lg rounded-lg overflow-hidden p-4">
+          <div key={index} className="product-item bg-white shadow-lg rounded-lg overflow-hidden p-6">
             {/* Render product image */}
             {product.productImage && (
               <img
                 src={product.productImage.filename}
                 alt={product.productImage.alt || product.productName}
-                className="w-full h-48 object-cover mb-4"
+                className="w-full h-64 object-cover mb-4" // Increased the height
               />
             )}
             <h3 className="text-lg font-semibold">{product.productName}</h3>
