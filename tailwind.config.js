@@ -4,6 +4,7 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    // Add any other paths where your components are located
   ],
   theme: {
     extend: {
@@ -14,5 +15,15 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    // Add the background color classes you want to preserve
+    'bg-red-600',
+    'bg-blue-600',
+    'bg-green-600',
+    'bg-yellow-600',
+    'bg-pink-600',
+    'bg-purple-600',
+    // Add more colors as needed
+  ],
   plugins: [],
 };
