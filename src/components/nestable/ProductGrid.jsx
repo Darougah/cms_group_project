@@ -2,10 +2,7 @@ import { storyblokEditable } from '@storyblok/react';
 import Image from 'next/image';
 
 const ProductGrid = ({ blok }) => {
-  // Use the grid_columns field from Storyblok or default to 3 columns
   const gridColumns = blok.grid_columns || 3;
-
-  // Dynamically create the grid class based on the number of columns
   const gridClass = `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-${gridColumns} gap-10`;
 
   return (
@@ -19,7 +16,9 @@ const ProductGrid = ({ blok }) => {
               <Image
                 src={product.productImage.filename}
                 alt={product.productImage.alt || product.productName}
-                className="w-full h-64 object-cover mb-4" // Increased the height
+                width={800} // You can adjust these values as needed
+                height={600} // Adjust according to your image aspect ratio
+                className="w-full h-64 object-cover mb-4" // Height here is for styling, not for Image component
               />
             )}
             <h3 className="text-lg font-semibold">{product.productName}</h3>

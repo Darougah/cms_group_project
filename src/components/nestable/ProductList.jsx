@@ -1,5 +1,6 @@
 import React from 'react';
 import { storyblokEditable } from '@storyblok/react';
+import Image from 'next/image';
 
 const ProductList = ({ products }) => {
   if (!products || products.length === 0) {
@@ -13,7 +14,7 @@ const ProductList = ({ products }) => {
         {products.map((product) => (
           <div key={product._uid} {...storyblokEditable(product)} className="product-item bg-white p-4 shadow-md rounded-lg">
             {product.productImage && (
-              <img
+              <Image
                 src={product.productImage.filename}
                 alt={product.productName}
                 className="w-full h-64 object-cover mb-4"

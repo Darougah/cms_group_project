@@ -14,9 +14,11 @@ import ProductGrid from "@/components/nestable/ProductGrid";
 import ProductFeature from "@/components/nestable/ProductFeature";
 import ProductSlider from "@/components/nestable/ProductSlider";
 import ProductPage from "@/components/content-types/ProductPage";
+import AboutPage from "@/components/nestable/AboutPage";
 
 const components = {
   "page": Page,
+  "about": AboutPage,
   "teaser": Teaser,
   "richtext": RichTextDefault,
   "hero": hero,
@@ -28,7 +30,7 @@ const components = {
   "product-feature": ProductFeature,
   "product-slider": ProductSlider,
   "product-listing": ProductPage,
-  // "product-listing": ProductGrid, (finns redan? dubbelkolla sen)
+  "product-listing": ProductGrid,
 };
 
 storyblokInit({
