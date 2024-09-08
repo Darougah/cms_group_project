@@ -1,4 +1,5 @@
 import { storyblokEditable } from '@storyblok/react';
+import Image from 'next/image';
 
 const ProductGrid = ({ blok }) => {
   // Use the grid_columns field from Storyblok or default to 3 columns
@@ -15,7 +16,7 @@ const ProductGrid = ({ blok }) => {
           <div key={index} className="product-item bg-white shadow-lg rounded-lg overflow-hidden p-6">
             {/* Render product image */}
             {product.productImage && (
-              <img
+              <Image
                 src={product.productImage.filename}
                 alt={product.productImage.alt || product.productName}
                 className="w-full h-64 object-cover mb-4" // Increased the height

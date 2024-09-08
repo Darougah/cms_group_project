@@ -28,7 +28,7 @@ const components = {
   "product-feature": ProductFeature,
   "product-slider": ProductSlider,
   "product-listing": ProductPage,
-  "product-listing": ProductGrid,
+  // "product-listing": ProductGrid, (finns redan? dubbelkolla sen)
 };
 
 storyblokInit({
