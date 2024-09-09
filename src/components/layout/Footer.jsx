@@ -5,10 +5,10 @@ const Footer = ({ footerSections = [], newsletter }) => {
   return (
     <footer className="bg-gray-900 text-white p-8">
       {/* Container for the footer */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 justify-center">
-        {/* Newsletter on the far left, but centered */}
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Newsletter section */}
         {newsletter && (
-          <div className="bg-gray-800 py-6 text-center col-span-1" {...storyblokEditable(newsletter)}>
+          <div className="bg-gray-800 py-6 text-center" {...storyblokEditable(newsletter)}>
             <h3 className="text-xl font-semibold mb-4">{newsletter.heading}</h3>
             <p className="mb-4">{newsletter.description}</p>
             <form className="flex flex-col items-center">
@@ -24,21 +24,31 @@ const Footer = ({ footerSections = [], newsletter }) => {
           </div>
         )}
 
-        {/* Footer sections centered */}
-        <div className="col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+        {/* Footer sections */}
+        <div className="col-span-3 grid grid-cols-1 md:grid-cols-1 gap-4">
           {footerSections.map((section, index) => (
             section.component === 'FooterSection' && (
-              <section key={index} {...storyblokEditable(section)} className="text-center mb-4">
+              <section key={index} {...storyblokEditable(section)} className="text-center">
                 <h4 className="text-lg font-bold mb-2">{section.title}</h4>
-                <ul className="flex justify-center space-x-6 mt-4">  {/* Centered flexbox for links with space */}
+                <div className="flex justify-between">
                   {section.links && section.links.map((link, i) => (
-                    <li key={i}>
-                      <a href={link.url.cached_url} className="hover:underline">
-                        {link.label}
-                      </a>
-                    </li>
+                    <div key={i} className="flex flex-col items-center">
+                      <h5 className="font-semibold mb-2">{link.label}</h5>
+                      {/* Render sub-links if they exist */}
+                      {link.subLinks && link.subLinks.length > 0 && (
+                        <ul className="mt-2 space-y-2 text-sm text-gray-400">
+                          {link.subLinks.map((subLink, j) => (
+                            <li key={j}>
+                              <a href={subLink.url.cached_url} className="hover:underline">
+                                {subLink.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </section>
             )
           ))}
