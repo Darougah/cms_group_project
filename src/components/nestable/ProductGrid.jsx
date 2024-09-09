@@ -21,13 +21,13 @@ const ProductGrid = ({ blok }) => {
                 className="w-full h-64 object-cover mb-4" // Height here is for styling, not for Image component
               />
             )}
-            <h3 className="text-lg font-semibold">{product.productName}</h3>
-            <p className="text-gray-600 mb-2">Price: ${product.productPrice}</p>
+            <h3 className="text-center text-lg font-semibold">{product.productName}</h3>
+            <p className="text-center text-gray-600 mb-2">Price: ${product.productPrice}</p>
 
             {/* Safely render product description */}
             {product.productDescription?.content?.length > 0 && (
               <div
-                className="text-gray-700 mb-4"
+                className="text-center text-gray-700 mb-4"
                 dangerouslySetInnerHTML={{
                   __html: product.productDescription.content
                     .map((content) => content.content?.[0]?.text || '')

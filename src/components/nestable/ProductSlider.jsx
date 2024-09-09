@@ -57,15 +57,15 @@ const ProductSlider = ({ blok }) => {
                   className="w-full h-auto"
                 />
               )}
-              <h3 className="text-lg font-semibold mt-2">{product.productName}</h3>
-              <p className="text-gray-600">${product.productPrice}</p>
+              <h3 className="text-center text-lg font-semibold mt-2">{product.productName}</h3>
+              <p className="text-center text-gray-600">${product.productPrice}</p>
             </a>
 
             {/* Conditionally render the label link below the product */}
             {product.productUrl && product.productUrl.length > 0 && (
               <a
                 href={product.productUrl[0].url.cached_url || product.productUrl[0].url.url}
-                className="text-blue-500 underline mt-2 block"
+                className="text-center text-blue-500 underline mt-2 block"
                 target={product.productUrl[0].url.linktype === 'url' ? '_blank' : '_self'}
                 rel={product.productUrl[0].url.linktype === 'url' ? 'noopener noreferrer' : ''}
               >

@@ -12,21 +12,21 @@ const ProductFeature = ({ blok }) => {
   return (
     <section {...storyblokEditable(blok)}>
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-4">{blok.headline}</h2>
-        <p className="text-sm font-semibold">{blok.subtitle}</p>
+        <h2 className="text-4xl font-bold mb-4">{blok.headline}</h2>
+        <p className="text-sm font-semibold mb-2">{blok.subtitle}</p>
         <p className="text-sm font-semibold">{blok.subtitle2}</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {products.map((product, index) => (
-          <div key={index} className="border p-4">
+          <div key={index} className="">
             {product.productImage && (
-              <div className="relative w-full h-64 mb-4">
+              <div className={`relative ${index === 1 ? 'w-full h-80' : 'w-full h-60'} mb-4`}>
                 <Image
                   src={product.productImage.filename}
                   alt={product.productImage.alt || product.productName}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="absolute inset-0 object-cover"
+                  className="absolute inset-0 object-contain" // Changed to object-contain
                 />
               </div>
             )}

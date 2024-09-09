@@ -35,7 +35,7 @@ const AboutPage = ({ blok }) => {
         </div>
       </section>
 
-      <div className="bg-gray-300 h-60 w-full mb-20"></div>
+      <div className="bg-gray-300 h-40 w-full mb-8"></div>
 
       {blok.body && blok.body.map((block, index) => {
         if (block.component === 'product-feature') {

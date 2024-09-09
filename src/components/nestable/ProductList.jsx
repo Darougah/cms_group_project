@@ -20,10 +20,10 @@ const ProductList = ({ products }) => {
                 className="w-full h-64 object-cover mb-4"
               />
             )}
-            <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
-            <p className="text-gray-800 font-bold">Price: ${product.productPrice}</p>
+            <h3 className="text-center text-lg font-semibold mb-2">{product.productName}</h3>
+            <p className="text-center text-gray-800 font-bold">Price: ${product.productPrice}</p>
             <div
-              className="text-gray-700"
+              className="text-center text-gray-700"
               dangerouslySetInnerHTML={{
                 __html: product.productDescription?.content?.map(content => content.content[0]?.text).join(' ') || '',
               }}
