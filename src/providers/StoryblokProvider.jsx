@@ -30,7 +30,7 @@ const components = {
   "product-feature": ProductFeature,
   "product-slider": ProductSlider,
   "product-listing": ProductPage,
-  // "product-listing": ProductGrid,
+  "product-listing": ProductGrid,
 };
 
 storyblokInit({
