@@ -16,17 +16,19 @@ import ProductSlider from "@/components/nestable/ProductSlider";
 import ProductPage from "@/components/content-types/ProductPage";
 import AboutPage from "@/components/nestable/AboutPage";
 
+console.log("Access token:", StoryblokCMS.TOKEN);
+
 const components = {
-  "page": Page,
-  "about": AboutPage,
-  "teaser": Teaser,
-  "richtext": RichTextDefault,
-  "hero": hero,
-  "filterBar": FilterBar,
-  "latestproducts": LatestProducts,
-  "productlist": ProductList,
-  "imagebanner": ImageBanner,
-  "productgrid": ProductGrid,
+  page: Page,
+  about: AboutPage,
+  teaser: Teaser,
+  richtext: RichTextDefault,
+  hero: hero,
+  filterBar: FilterBar,
+  latestproducts: LatestProducts,
+  productlist: ProductList,
+  imagebanner: ImageBanner,
+  productgrid: ProductGrid,
   "product-feature": ProductFeature,
   "product-slider": ProductSlider,
   "product-listing": ProductPage,
