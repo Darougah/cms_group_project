@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useStoryblokApi } from '@storyblok/react';
-import Modal from './Modal';
-import ProductList from '@/components/nestable/ProductList';
+import React, { useState } from "react";
+import { useStoryblokApi } from "@storyblok/react";
+import Modal from "./Modal";
+import ProductList from "@/components/nestable/ProductList";
+import Image from "next/image";
+import Link from "next/link";
 
 const Header = ({ headerLinks, logo }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,8 +15,8 @@ const Header = ({ headerLinks, logo }) => {
   const handleSearch = async (query = searchQuery) => {
     setIsModalOpen(true);
     try {
-      const { data } = await storyblokApi.get('cdn/stories/productpage', {
-        version: 'draft',
+      const { data } = await storyblokApi.get("cdn/stories/productpage", {
+        version: "draft",
       });
 
       const productListing = data.story.content.products || [];
@@ -25,7 +27,7 @@ const Header = ({ headerLinks, logo }) => {
 
       setSearchResults(filteredProducts);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
     }
   };
 
@@ -35,8 +37,8 @@ const Header = ({ headerLinks, logo }) => {
 
     if (query.length > 0) {
       try {
-        const { data } = await storyblokApi.get('cdn/stories/productpage', {
-          version: 'draft',
+        const { data } = await storyblokApi.get("cdn/stories/productpage", {
+          version: "draft",
         });
 
         const productListing = data.story.content.products || [];
@@ -47,7 +49,7 @@ const Header = ({ headerLinks, logo }) => {
 
         setFilteredSuggestions(filteredProducts);
       } catch (error) {
-        console.error('Error fetching live search suggestions:', error);
+        console.error("Error fetching live search suggestions:", error);
       }
     } else {
       setFilteredSuggestions([]);
@@ -64,11 +66,17 @@ const Header = ({ headerLinks, logo }) => {
   return (
     <header className="bg-gray-800 text-white p-4">
       <nav className="container mx-auto flex justify-between items-center">
-        {logo && (
+        <Link href="/home">
           <div className="flex-shrink-0">
-            <img src={logo} alt="Logo" className="h-10" />
+            <Image
+              src={logo}
+              width={100}
+              height={400}
+              alt="The logotype for the page"
+              className="h-10"
+            />
           </div>
-        )}
+        </Link>
 
         <div className="flex-grow flex justify-center items-center space-x-6">
           {headerLinks &&
@@ -77,34 +85,51 @@ const Header = ({ headerLinks, logo }) => {
                 {section.link.map((link) => (
                   <a
                     key={link._uid}
-                    href={link.url.cached_url ? `/${link.url.cached_url}` : link.url.url}
+                    href={
+                      link.url.cached_url
+                        ? `/${link.url.cached_url}`
+                        : link.url.url
+                    }
                     className="text-lg hover:underline px-4 py-2"
-                    target={link.url.linktype === 'url' ? '_blank' : '_self'}
-                    rel={link.url.linktype === 'url' ? 'noopener noreferrer' : ''}
+                    target={link.url.linktype === "url" ? "_blank" : "_self"}
+                    rel={
+                      link.url.linktype === "url" ? "noopener noreferrer" : ""
+                    }
                   >
                     {link.label}
                   </a>
                 ))}
 
-                {section.dropdown_links && section.dropdown_links.length > 0 && (
-                  <ul className="absolute hidden group-hover:block bg-white text-gray-800 p-2 shadow-lg rounded-md">
-                    {section.dropdown_links.map((dropdownItem) => (
-                      <li key={dropdownItem._uid} className="p-2">
-                        <a
-                          href={dropdownItem.url.cached_url ? `/${dropdownItem.url.cached_url}` : dropdownItem.url.url}
-                          className="block hover:bg-gray-100 rounded-md p-2"
-                        >
-                          {dropdownItem.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                {section.dropdown_links &&
+                  section.dropdown_links.length > 0 && (
+                    <ul className="absolute hidden group-hover:block bg-white text-gray-800 p-2 shadow-lg rounded-md">
+                      {section.dropdown_links.map((dropdownItem) => (
+                        <li key={dropdownItem._uid} className="p-2">
+                          <a
+                            href={
+                              dropdownItem.url.cached_url
+                                ? `/${dropdownItem.url.cached_url}`
+                                : dropdownItem.url.url
+                            }
+                            className="block hover:bg-gray-100 rounded-md p-2"
+                          >
+                            {dropdownItem.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
               </div>
             ))}
 
           {showSearch && (
-            <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="flex items-center ml-4 relative">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+              className="flex items-center ml-4 relative"
+            >
               <input
                 type="text"
                 className="p-2 rounded-l-md text-gray-800"
@@ -112,7 +137,10 @@ const Header = ({ headerLinks, logo }) => {
                 value={searchQuery}
                 onChange={handleInputChange}
               />
-              <button type="submit" className="bg-blue-500 p-2 rounded-r-md text-white hover:bg-blue-700">
+              <button
+                type="submit"
+                className="bg-blue-500 p-2 rounded-r-md text-white hover:bg-blue-700"
+              >
                 Search
               </button>
 
