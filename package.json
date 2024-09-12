@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap" ,
+    "postbuild": "next-sitemap",
     "proxy": "mkcert -install && mkcert localhost && local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem"
   },
   "dependencies": {
     "@storyblok/react": "^3.0.10",
     "classnames": "^2.5.1",
     "next": "14.2.3",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-slick": "^0.30.2",
