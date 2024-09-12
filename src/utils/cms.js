@@ -44,9 +44,9 @@ export class StoryblokCMS {
 
       if (!story) throw new Error("Story not found");
 
-      const title = story.content.title || "Default Title";
+      const title = story.content.title || "KDH";
       const description =
-        story.content.description || "Default Description";
+        story.content.description || "Your place for fashion";
 
       return {
         title,
