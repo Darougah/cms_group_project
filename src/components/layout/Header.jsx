@@ -1,118 +1,62 @@
-// import React, { useState } from 'react';
-// import { storyblokEditable } from '@storyblok/react';
-
-// const Header = ({ headerLinks, logo }) => {
-//   const [searchQuery, setSearchQuery] = useState('');
-
-//   const handleSearch = (e) => {
-//     e.preventDefault();
-//     // Handle the search logic
-//     console.log('Searching for:', searchQuery);
-//   };
-
-//   // Check if show_search is enabled
-//   const showSearch = headerLinks?.some(section => section.show_search);
-
-//   return (
-//     <header className="bg-gray-800 text-white p-4">
-//       <nav className="container mx-auto flex justify-between items-center">
-//         {/* Logo */}
-//         {logo && (
-//           <div className="flex-shrink-0">
-//             <img src={logo} alt="Logo" className="h-10" />
-//           </div>
-//         )}
-
-//         {/* Links */}
-//         <div className="flex-grow flex justify-center items-center space-x-4">
-//           {headerLinks &&
-//             headerLinks.map((section) =>
-//               section.link.map((link) => (
-//                 <a
-//                   key={link._uid}
-//                   href={link.url.cached_url ? `/${link.url.cached_url}` : link.url.url}
-//                   className="text-lg hover:underline"
-//                   target={link.url.linktype === 'url' ? '_blank' : '_self'}
-//                   rel={link.url.linktype === 'url' ? 'noopener noreferrer' : ''}
-//                 >
-//                   {link.label}
-//                 </a>
-//               ))
-//             )}
-
-//           {/* Search Bar */}
-//           {showSearch && (
-//             <form onSubmit={handleSearch} className="flex items-center ml-4">
-//               <input
-//                 type="text"
-//                 className="p-2 rounded-l-md text-gray-800"
-//                 placeholder="Search..."
-//                 value={searchQuery}
-//                 onChange={(e) => setSearchQuery(e.target.value)}
-//               />
-//               <button
-//                 type="submit"
-//                 className="bg-blue-500 p-2 rounded-r-md text-white hover:bg-blue-700"
-//               >
-//                 Search
-//               </button>
-//             </form>
-//           )}
-//         </div>
-//       </nav>
-//     </header>
-//   );
-// };
-
-// export default Header;
-
-
 import React, { useState } from 'react';
 import { useStoryblokApi } from '@storyblok/react';
-import Modal from './Modal'; 
-import ProductList from '@/components/nestable/ProductList'; 
+import Modal from './Modal';
+import ProductList from '@/components/nestable/ProductList';
 
 const Header = ({ headerLinks, logo }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const storyblokApi = useStoryblokApi();
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
+  const handleSearch = async (query = searchQuery) => {
     setIsModalOpen(true);
-  
     try {
-      // Fetch the `productpage` story
       const { data } = await storyblokApi.get('cdn/stories/productpage', {
         version: 'draft',
       });
-  
-      // Log the full response to understand its structure
-      console.log('Full response:', data);
-  
-      // Extract `product-listing` block
+
       const productListing = data.story.content.products || [];
-  
-      // Ensure productListing is an array of products
-      console.log('Product Listing:', productListing);
-  
-      // Filter products based on the search query
+
       const filteredProducts = productListing.filter((product) =>
-        product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        product.productName.toLowerCase().includes(query.toLowerCase())
       );
-  
-      console.log('Search results:', filteredProducts);
+
       setSearchResults(filteredProducts);
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
   };
-  
-  
+
+  const handleInputChange = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (query.length > 0) {
+      try {
+        const { data } = await storyblokApi.get('cdn/stories/productpage', {
+          version: 'draft',
+        });
+
+        const productListing = data.story.content.products || [];
+
+        const filteredProducts = productListing.filter((product) =>
+          product.productName.toLowerCase().includes(query.toLowerCase())
+        );
+
+        setFilteredSuggestions(filteredProducts);
+      } catch (error) {
+        console.error('Error fetching live search suggestions:', error);
+      }
+    } else {
+      setFilteredSuggestions([]);
+    }
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
-    setSearchResults([]); 
+    setSearchResults([]);
   };
 
   const showSearch = headerLinks?.some((section) => section.show_search);
@@ -160,17 +104,35 @@ const Header = ({ headerLinks, logo }) => {
             ))}
 
           {showSearch && (
-            <form onSubmit={handleSearch} className="flex items-center ml-4">
+            <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="flex items-center ml-4 relative">
               <input
                 type="text"
                 className="p-2 rounded-l-md text-gray-800"
                 placeholder="Search..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleInputChange}
               />
               <button type="submit" className="bg-blue-500 p-2 rounded-r-md text-white hover:bg-blue-700">
                 Search
               </button>
+
+              {filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 mt-2 w-full bg-white border rounded-lg shadow-lg">
+                  {filteredSuggestions.map((product) => (
+                    <div key={product._uid} className="p-2 hover:bg-gray-200">
+                      <button
+                        onClick={() => {
+                          setSearchQuery(product.productName); // Set the clicked product as the search query
+                          handleSearch(product.productName); // Trigger search with that product
+                        }}
+                        className="text-black w-full text-left"
+                      >
+                        {product.productName}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </form>
           )}
         </div>
