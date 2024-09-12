@@ -1,20 +1,17 @@
-
-// export default function handler(req, res) {
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.write('User-agent: *\nAllow: /\n');
-//   res.end();
-// }
-
-
-export default function robots() {
+export default function Robots() {
   return {
     rules: [
       {
-        userAgent: "*",  // Allow all user agents
-        allow: "/",      // Allow everything
-        disallow: "/api/", // Disallow the API routes
+        userAgent: '*',  // Applies to all user agents
+        allow: '/',      // Allow all routes to be crawled
+        disallow: '/api/',  // Disallow crawling of API routes
+      },
+      {
+        userAgent: 'Googlebot',  // Special rules for Googlebot
+        allow: '/',  // Allow all public routes
+        disallow: '/private/',  // Disallow Googlebot from crawling private routes
       },
     ],
-    sitemap: "https://cms-group-project.vercel.app/sitemap.xml", // Provide the sitemap URL
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,  // Link to the sitemap
   };
 }

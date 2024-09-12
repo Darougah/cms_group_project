@@ -5,3 +5,4 @@ dist
 localhost*
 .vercel
 .DS_Store
+.env.local

@@ -1,51 +1,33 @@
+// import { StoryblokCMS } from "@/utils/cms";
+// import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 
-// import { getStoryblokApi } from '@storyblok/react';
+// // Initialize Storyblok with the preview token
+// storyblokInit({
+//   accessToken: process.env.NEXT_PUBLIC_PREVIEW_STORYBLOK_TOKEN,
+//   use: [apiPlugin],
+// });
 
-// export default async function handler(req, res) {
-//   const StoryblokApi = getStoryblokApi();
-//   const { data } = await StoryblokApi.get('cdn/links/');
+// export default async function sitemap() {
+//   try {
+//     // Get all static paths (slugs) from Storyblok
+//     const paths = await StoryblokCMS.getStaticPaths();
 
-//   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+//     // Create sitemap entries from paths
+//     const sitemap = paths.map((path) => {
+//       const slug = path.slug.join("/");  // Join the slug array into a string
+//       const fullUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`;
 
-//   Object.keys(data.links).forEach((link) => {
-//     const url = data.links[link];
-//     sitemap += `<url>\n<loc>https://yourwebsite.com/${url.slug}</loc>\n</url>\n`;
-//   });
+//       return {
+//         loc: fullUrl,  // Full URL for the page
+//         lastModified: new Date().toISOString(),  // Use ISO string for the last modified date
+//         priority: 0.8,  // Priority for each page (can be adjusted)
+//       };
+//     });
 
-//   sitemap += '</urlset>';
-//   res.setHeader('Content-Type', 'application/xml');
-//   res.write(sitemap);
-//   res.end();
+//     // Return the generated sitemap
+//     return sitemap;
+//   } catch (error) {
+//     console.error("Error generating sitemap:", error);
+//     return [];
+//   }
 // }
-
-
-import { StoryblokCMS } from "@/utils/cms"; // Make sure this is your Storyblok API instance
-import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
-
-storyblokInit({
-  accessToken: process.env.NEXT_PUBLIC_PREVIEW_STORYBLOK_TOKEN,  
-  use: [apiPlugin],
-});
-
-export default async function sitemap() {
-  try {
-    // Fetch all static paths from Storyblok CMS (ensure this method exists)
-    const pages = await StoryblokCMS.getStaticPaths();
-
-    // Map over the fetched pages and return the correct sitemap structure
-    const sitemap = pages.map((page) => {
-      const currentUrl = `https://cms-group-project.vercel.app/${page.full_slug}`;
-      return {
-        url: currentUrl,
-        lastModified: new Date().toISOString(), // Standard format for lastModified
-        priority: 0.8, // Define a priority (e.g., 1 for homepage, 0.8 for other pages)
-      };
-    });
-
-    // Return the sitemap array
-    return sitemap;
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
-    return [];
-  }
-}
