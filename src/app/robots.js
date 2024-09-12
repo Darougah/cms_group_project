@@ -7,6 +7,6 @@ export default function Robots() {
         disallow: '/private/',
       },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap-0.xml`,
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
   };
 }
