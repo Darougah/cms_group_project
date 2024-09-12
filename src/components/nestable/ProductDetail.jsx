@@ -2,15 +2,12 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 export default function ProductDetail({ story }) {
-  console.log("Story data in ProductDetail:", story);
-
-  // Check if the story and content exist before accessing them
   if (!story || !story.content) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <p className="text-lg text-gray-500">Loading...</p>
       </div>
-    ); // Display Loading if no story is available
+    );
   }
 
   const content = story.content;
@@ -19,7 +16,9 @@ export default function ProductDetail({ story }) {
     <div className="product-detail container mx-auto px-4 py-8" {...storyblokEditable(content)}>
       {/* Render the title */}
       {content.title && (
-        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">{content.title}</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
+          {content.title}
+        </h1>
       )}
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -38,7 +37,9 @@ export default function ProductDetail({ story }) {
         <div className="md:w-1/2 md:pl-8">
           {/* Product Price */}
           {content.productPrice && (
-            <p className="text-2xl font-semibold text-gray-800 mb-4">${content.productPrice}</p>
+            <p className="text-2xl font-semibold text-gray-800 mb-4">
+              ${content.productPrice}
+            </p>
           )}
 
           {/* Product Description */}
@@ -52,6 +53,39 @@ export default function ProductDetail({ story }) {
                   </p>
                 ) : null;
               })}
+            </div>
+          )}
+
+          {/* Color Selection */}
+          {content.availableColors?.length > 0 && (
+            <div className="flex flex-col space-y-2 mb-6">
+              <p className="text-sm font-semibold">Color</p>
+              <div className="flex space-x-4">
+                {content.availableColors.map((color, index) => (
+                  <button
+                    key={index}
+                    className={`w-10 h-10 rounded-full border border-black focus:outline-none ${color}`}
+                    aria-label={`Color option ${color}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Size Selection */}
+          {content.availableSizes?.length > 0 && (
+            <div className="flex flex-col space-y-2 mb-6">
+              <p className="text-sm font-semibold">Size</p>
+              <div className="flex space-x-4">
+                {content.availableSizes.map((size, index) => (
+                  <button
+                    key={index}
+                    className="px-4 py-2 border border-black text-black text-sm font-semibold w-16 h-16 flex items-center justify-center"
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 
