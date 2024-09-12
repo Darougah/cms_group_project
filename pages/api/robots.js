@@ -2,16 +2,16 @@ export default function Robots() {
   return {
     rules: [
       {
-        userAgent: '*',  // Applies to all user agents
-        allow: '/',      // Allow all routes to be crawled
-        disallow: '/api/',  // Disallow crawling of API routes
+        userAgent: '*',
+        allow: '/',
+        disallow: '/api/',
       },
       {
-        userAgent: 'Googlebot',  // Special rules for Googlebot
-        allow: '/',  // Allow all public routes
-        disallow: '/private/',  // Disallow Googlebot from crawling private routes
+        userAgent: 'Googlebot',
+        allow: '/',
+        disallow: '/private/',
       },
     ],
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,  // Link to the sitemap
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap-0.xml`,
   };
 }
