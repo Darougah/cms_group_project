@@ -21,12 +21,14 @@ const ContactForm = ({ blok }) => {
           />
         </div>
 
-        <button
-          className="text-white px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-800"
-          type="submit"
-        >
-          Send
-        </button>
+        <div className="flex justify-end">
+          <button
+            className="text-white px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-800"
+            type="submit"
+          >
+            Send
+          </button>
+        </div>
       </form>
     </div>
   );
