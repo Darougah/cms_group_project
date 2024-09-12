@@ -1,7 +1,12 @@
 "use client";
+import { useState } from "react";
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 export default function ProductDetail({ story }) {
+  // State to track selected color and size
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+
   if (!story || !story.content) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -64,7 +69,8 @@ export default function ProductDetail({ story }) {
                 {content.availableColors.map((color, index) => (
                   <button
                     key={index}
-                    className={`w-10 h-10 rounded-full border border-black focus:outline-none ${color}`}
+                    className={`w-10 h-10 rounded-full border border-black focus:outline-none ${color} ${selectedColor === color ? 'ring-4 ring-blue-500' : ''}`}
+                    onClick={() => setSelectedColor(color)} // Update selected color
                     aria-label={`Color option ${color}`}
                   />
                 ))}
@@ -80,7 +86,8 @@ export default function ProductDetail({ story }) {
                 {content.availableSizes.map((size, index) => (
                   <button
                     key={index}
-                    className="px-4 py-2 border border-black text-black text-sm font-semibold w-16 h-16 flex items-center justify-center"
+                    className={`px-4 py-2 border border-black text-black text-sm font-semibold w-16 h-16 flex items-center justify-center ${selectedSize === size ? 'bg-gray-200 border-blue-500' : ''}`}
+                    onClick={() => setSelectedSize(size)} // Update selected size
                   >
                     {size}
                   </button>
