@@ -15,6 +15,7 @@ import ProductFeature from "@/components/nestable/ProductFeature";
 import ProductSlider from "@/components/nestable/ProductSlider";
 import ProductPage from "@/components/content-types/ProductPage";
 import AboutPage from "@/components/nestable/AboutPage";
+import ContactForm from "@/components/nestable/ContactForm";
 
 console.log("Access token:", StoryblokCMS.TOKEN);
 
@@ -33,6 +34,7 @@ const components = {
   "product-slider": ProductSlider,
   "product-listing": ProductPage,
   "product-listing": ProductGrid,
+  "contact-form": ContactForm,
 };
 
 storyblokInit({
