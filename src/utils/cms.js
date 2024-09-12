@@ -39,15 +39,26 @@ export class StoryblokCMS {
   }
 
   static async generateMetaFromStory(slug) {
-    //Read nextjs metadata docs
-    //1. Add Seo fields to Page component in storyblok (in own tab)
-    //1. Fetch the story from Storyblok (make sure that page content-type has metadata)
-    //2. Extract the metadata from the story
-    //3. Return the metadata object
-    return {
-      title: "Title",
-      description: "Description",
-    };
+    try {
+      const story = await this.getStory({ slug: slug.split("/") });
+
+      if (!story) throw new Error("Story not found");
+
+      const title = story.content.title || "Default Title";
+      const description =
+        story.content.description || "Default Description";
+
+      return {
+        title,
+        description,
+      };
+    } catch (error) {
+      console.error("Error generating metadata:", error);
+      return {
+        title: "Default Title",
+        description: "Default Description",
+      };
+    }
   }
 
   //Generates static paths from Links API endpoint
