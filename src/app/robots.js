@@ -4,6 +4,11 @@ export default function Robots() {
       {
         userAgent: '*',
         allow: '/',
+        disallow: '/api/',
+      },
+      {
+        userAgent: 'Googlebot',
+        allow: '/',
         disallow: '/private/',
       },
     ],
